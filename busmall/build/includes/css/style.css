@@ -1,0 +1,17 @@
+body {
+	margin: 0;
+	padding: 0;
+	/*background: #000;*/
+	overflow-x: hidden;
+	-webkit-user-select: none;
+	-webkit-text-size-adjust: none;
+}
+div, img, a {
+	margin: 0;
+	padding: 0;
+	border: 0px;
+}
+xdiv {
+	display: none;
+	overflow: hidden;
+}
