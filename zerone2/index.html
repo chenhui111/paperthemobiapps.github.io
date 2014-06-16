@@ -56,7 +56,213 @@ var linkClass = "",
 
 <div id="date_selector"><img name="date_selector" src="Library/images/date_selector.gif" width="320" height="568" border="0" usemap="#m_date_selector"><map name="m_date_selector"><area shape="rect" coords="259,347,320,390" href="#"   class="back" ></map></div>
 
-<div id="detail"><img name="detail" src="Library/images/detail.gif" width="320" height="568" border="0" usemap="#m_detail"><map name="m_detail"><area shape="rect" coords="0,340,320,508" href="#" title="swipeup,detail_bottom,pushup" ><area shape="rect" coords="0,520,320,568" href="#date_selector"   class="fadefast" ><area shape="rect" coords="0,284,320,329" href="#item_selector"   class="fadefast" ><area shape="rect" coords="0,20,54,65" href="#index"   class="slideright" ></map></div>
+<div id="detail"><img name="detail" src="Library/images/detail.gif" width="320" height="568" border="0" usemap="#m_detail"><map name="m_detail"><area shape="rect" coords="0,340,320,508" href="#" title="swipeup,detail_bottom,pushup" ><area shape="rect" coords="0,520,320,568" href="#date_selector"   class="fadefast" ><area shape="rect" coords="0,284,320,329" href="#item_selector"   class="fadefast" ><area shape="rect" coords="0,20,54,65" href="#index"   class="slideright" ></map><!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>zerone</title>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<style type="text/css">
+body{
+	margin:0;
+	padding:0;
+	font-family:'Helvetica Neu',sans-serif;
+}
+
+div#navbar{
+	width:100%;
+	height:64px;
+	position:fixed;
+	top:0;
+	left:0;
+	background:url(images/detail_nav.png) no-repeat;
+	background-size:100% 100%;
+	z-index:1001;
+}
+
+div#content{
+	z-index:101;
+	width:100%;
+}
+
+div#top_margin{
+	width:100%;
+	height:64px;
+	background:white;
+}
+
+div#overview{
+	width:100%;
+	height:263px;
+	background:url(images/detail_overview.png) no-repeat;
+	background-size:100% 100%;
+}
+
+div#seg{
+	width:100%;
+	height:45px;
+	background:url(images/detail_segmenter.png) no-repeat;
+	background-size:100% 100%;
+}
+
+div#chartbox{
+	width:100%;
+	height:150px;
+	background:#f8f8f8;
+	position:relative;
+}
+
+div#linechartbox{
+	width:300px;
+	height:111px;
+	position:absolute;
+	top:14px;
+	left:10px;
+	overflow-x:scroll;
+	overflow-y:hidden;
+	border:1px solid #e6e6e6;
+}
+
+div#range_box{
+	width:100%;
+	height:44px;
+	background:#f8f8f8;
+	border-top:1px solid #d2d2d2;
+	position:relative;
+	overflow:hidden;
+}
+
+span.title{
+	font-size:16px;
+	color:#333;
+	left:16px;
+	margin-top:4%;
+	position:absolute;
+}
+
+span.day{
+	font-size:14px;
+	color:#999;
+	width:100px;
+	right:16px;
+	margin-top:4%;
+	text-align:right;
+	position:absolute;
+	margin-right:30px;
+	
+}
+
+span.icon{
+	width:30px;
+	height:30px;
+	background:url(images/icon_greater.png) no-repeat;
+	background-size:100% 100%;
+	position:absolute;
+	right:10px;
+	top:7px;
+}
+
+input#datetime{
+	width:320px;
+	height:44px;
+	background:rgba(0,0,0,0);
+	position:absolute;
+	top:0;
+	left:0;
+	color:rgba(0,0,0,0);
+	border:1px sold #aaa;
+	padding:0;
+	margin:0;
+}
+
+div#report_box{
+	width:100%;
+	height:320px;
+	overflow-x:hidden;
+	overflow-y:scroll;
+	background:#f8f8f8;
+}
+
+div.report_item{
+	width:100%;
+	height:44px;
+	position:relative;
+	overflow:hidden;
+	background:#f8f8f8;
+	border-top:1px solid #d2d2d2;
+}
+
+div.report_item>span.time{
+	font-size:16px;
+	color:#333;
+	position:absolute;
+	left:16px;
+	top:14px;
+}
+
+div.report_item>span.amount{
+	font-size:14px;
+	color:#999;
+	position:absolute;
+	right:16px;
+	top:14px;
+	text-align:right;
+}
+
+</style>
+</head>
+<body bgcolor="#0000000">
+	<div id="navbar"> </div>
+	<div id="content">
+		<div id="top_margin"> </div>
+		<div id="overview"> </div>
+		<div id="seg"> </div>
+		<div id="chartbox">
+			<div id="linechartbox">
+				<img src="images/linechart.png" style="height:100%;" />
+			</div>
+		</div>
+		<div id="range_box">
+			<span class='title'>Around the day</span> <span class='day'>12/30 2013</span> <span class='icon'></span>
+			<input id="datetime" type='date' />
+		</div>
+		<div id="report_box">
+			<div class="report_item"><span class="time">1/2</span><span class="amount">10,765</span></div>
+			<div class="report_item"><span class="time">1/1</span><span class="amount">10,765</span></div>
+			<div class="report_item"><span class="time">12/31</span><span class="amount">10,765</span></div>
+			<div class="report_item"><span class="time">12/30</span><span class="amount">10,765</span></div>
+			<div class="report_item"><span class="time">12/29</span><span class="amount">10,765</span></div>
+			<div class="report_item"><span class="time">12/28</span><span class="amount">10,765</span></div>
+			<div class="report_item"><span class="time">12/27</span><span class="amount">10,765</span></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	//var times = ['1/2','1/1','12/31','12/30','12/29','12/28','12/27','12/26','12/25','12/24','12/23','12/22']
+	var latestDate = new Date(2013,0,2);
+	$(document).ready(function(){
+		
+		var time, timestring, amount, temp_span_time, temp_span_amount,temp;
+		$('div#report_box').html('');
+		var i = 0;
+		while(i<100){
+			time = new Date(latestDate.getTime()-24*60*60*1000*i);
+			timestring = (time.getMonth()+1)+'/'+(time.getDay()+1);
+			amount = Math.round(8000+8000*Math.random());
+			temp = $('<div></div>').addClass('report_item');
+			temp_span_time = $('<span></span>').addClass('time').html(timestring);
+			temp_span_amount = $('<span></span>').addClass('amount').html(amount);
+			temp.append(temp_span_time).append(temp_span_amount);
+			$('div#report_box').append(temp);
+			i++;
+		}
+		/*for (i=0;i<100;i++){
+			
+		}*/
+	});
+	</script>
+</body>
+</html>
+</div>
 
 <div id="detail_bottom"><img name="detail_bottom" src="Library/images/detail_bottom.gif" width="320" height="568" border="0" usemap="#m_detail_bottom"><map name="m_detail_bottom"><area shape="rect" coords="0,164,320,347" href="#" title="swipedown,detail,pushdown" ><area shape="rect" coords="0,23,40,64" href="#index"   class="slideright" ><area shape="rect" coords="0,114,320,157" href="#item_selector"   class="fadefast" ><area shape="rect" coords="0,347,320,398" href="#date_selector"   class="fadefast" ><area shape="rect" coords="0,398,320,568" href="#" title="swipedown,detail,pushdown" ></map></div>
 
