@@ -1,0 +1,66 @@
+#jqt {
+	margin-top:-19px;
+}
+#device {
+	background-image:url(build/includes/img/iphone4.png);
+	width: 379px;
+	height: 743px;
+	display: block;
+	position: absolute;
+	z-index:0;
+	top:0px;
+	left: 0px;
+ 	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='build/includes/img/iphone4.png', sizingMethod='crop');
+}
+#iphonebar {
+	background-image:url(build/includes/img/iphonebar.png);
+	background-repeat: no-repeat;
+	width: 320px;
+	height:20px;
+	display: block;
+	position: absolute;
+	top: 131px;
+	left: 32px;
+	z-index:100;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='build/includes/img/iphonebar.png', sizingMethod='crop');
+}
+
+#jqt {
+	position:relative;
+	top: 150px;
+	left: 32px;
+	z-index:50;
+	width:320px;
+	height:480px;
+	overflow:hidden;
+}
+.landscape #device  {
+	-webkit-transform:rotate(270deg);
+	top: -140px;
+	left: 200px;
+}
+.landscape #iphonebar {
+	background-image:url(build/includes/img/iphonebar_l.png);
+	background-repeat: no-repeat;
+	width: 480px;
+	top: 71px;
+	left: 150px;
+}
+.landscape #jqt {
+	top: 90px;
+	left: 150px;
+	width:480px;
+	height:320px;
+}
+.brotate {
+	position: absolute;
+	top: 630px;
+}
+.brotate span {
+	margin: 10px;
+	color: #FFF;
+	cursor: pointer	;
+	text-decoration: underline;
+	padding: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+}
