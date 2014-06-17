@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>zerone</title>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<style type="text/css">
+body{
+	margin:0;
+	padding:0;
+	font-family:'Helvetica Neu',sans-serif;
+}
+
+div#main{
+	width:100%;
+	height:568px;
+	position:fixed;
+	top:0;
+	left:0;
+	background:url(images/main.png) no-repeat;
+	background-size:100% 100%;
+	z-index:1001;
+	position:relative;
+	overflow:hidden;
+}
+
+canvas#wheel1,canvas#wheel2{
+	width:132px;
+	height:132px;
+	background:#f9f9f9;
+	position:absolute;
+}
+
+canvas#wheel1{
+	top:182px;
+	left:16px;
+}
+
+canvas#wheel2{
+	top:355px;
+	left:16px;
+}
+
+</style>
+</head>
+<body bgcolor="#0000000">
+	<div id="main">
+		<canvas id="wheel1" width="132" height="132">YOUR BROWSER SUCKS!</canvas>
+		<canvas id="wheel2">YOUR BROWSER SUCKS!</canvas>
+	</div>
+	<script type="text/javascript">
+	function easeOutQuart(t, b, c, d) {
+		var ts=(t/=d)*t;
+		var tc=ts*t;
+		return b+c*(-1*ts*ts + 4*tc + -6*ts + 4*t);
+	}
+	
+	// draw product 1 chart
+	var c1 = document.getElementById('wheel1');
+	var ctx1 = c1.getContext('2d');
+	
+	var baseCurrentTime = 0;
+	var indicatorCurrentTime = 0;
+	
+	var baseAnimationPara = {
+		start:-90,
+		end:360,
+		duration:5000, //draw 1000 milliseconds
+		unit:10 // unit 10 milliseconds
+	};
+	
+	var indicatorAnimationPara = {
+		start:-90,
+		end:120,
+		duration:5000, //draw 1000 milliseconds
+		unit:10 // unit 10 milliseconds
+	};
+	
+	var temp_end;
+	
+	var drawBaseInterval = setInterval(function(){
+		c1.width = c1.width
+		ctx1.beginPath();
+		ctx1.lineWidth = 20;
+		ctx1.strokeStyle = '#e7e7e7';
+		baseCurrentTime+=baseAnimationPara['unit'];
+		temp_end = easeOutQuart(baseCurrentTime,baseAnimationPara['start'],baseAnimationPara['end'],baseAnimationPara['duration']);
+		ctx1.arc(c1.width/2,c1.height/2,52,baseAnimationPara['start']*Math.PI/180,temp_end*Math.PI/180);
+		ctx1.stroke();
+		ctx1.closePath();
+		
+		ctx1.beginPath();
+		ctx1.lineWidth = 20;
+		ctx1.strokeStyle = '#8db923';
+		indicatorCurrentTime+=indicatorAnimationPara['unit'];
+		temp_end = easeOutQuart(indicatorCurrentTime,indicatorAnimationPara['start'],indicatorAnimationPara['end'],indicatorAnimationPara['duration']);
+		ctx1.arc(c1.width/2,c1.height/2,52,indicatorAnimationPara['start']*Math.PI/180,temp_end*Math.PI/180);
+		ctx1.stroke();
+		ctx1.closePath();
+		
+		if (baseCurrentTime>=baseAnimationPara['duration']){
+			console.log('cleaned');
+			window.clearInterval(drawBaseInterval);
+		}
+	},baseAnimationPara['unit']);
+	
+	var c2 = document.getElementById('wheel2');
+	
+	</script>
+</body>
+</html>
