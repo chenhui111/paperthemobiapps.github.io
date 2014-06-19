@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>zerone</title>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<style type="text/css">
+body{
+	margin:0;
+	padding:0;
+	font-family:'Helvetica Neu',sans-serif;
+}
+
+div#main{
+	width:100%;
+	height:568px;
+	position:fixed;
+	top:0;
+	left:0;
+	background:url(images/main.png) no-repeat;
+	background-size:100% 100%;
+	z-index:1001;
+	position:relative;
+	overflow:hidden;
+}
+
+canvas#wheel1,canvas#wheel2{
+	width:132px;
+	height:132px;
+	background:#f9f9f9;
+	position:absolute;
+}
+
+canvas#wheel1{
+	top:182px;
+	left:16px;
+	z-index:10;
+}
+
+canvas#wheel2{
+	top:355px;
+	left:16px;
+	z-index:10;
+}
+
+div#used1{
+	position:absolute;
+	top:182px;
+	left:16px;
+	width:132px;
+	height:132px;
+	background:rgba(0,0,0,0);
+	z-index:11;
+}
+
+div#used1 div:first-child{
+	width:100%;
+	height:auto;
+	font-size:24px;
+	color:#000000;
+	font-weight:bold;
+	text-align:center;
+}
+
+div#used1 div:last-child{
+	width:100%;
+	height:auto;
+	font-size:14px;
+	color:#000000;
+	text-align:center;
+}
+
+div#used2{
+	position:absolute;
+	top:355px;
+	left:16px;
+	width:132px;
+	height:132px;
+	background:rgba(0,0,0,0);
+	z-index:11;
+}
+
+div#used2 div:first-child{
+	width:100%;
+	height:auto;
+	font-size:24px;
+	color:#fa4833;
+	font-weight:bold;
+	text-align:center;
+}
+
+div#used2 div:last-child{
+	width:100%;
+	height:auto;
+	font-size:14px;
+	color:#000000;
+	text-align:center;
+}
+
+</style>
+</head>
+<body bgcolor="#0000000">
+	<div id="main">
+		<canvas id="wheel1" width="132" height="132">YOUR BROWSER SUCKS!</canvas>
+		<canvas id="wheel2" width="132" height="132">YOUR BROWSER SUCKS!</canvas>
+		<!--<div id="used1"><div>48%</div><div>used</div></div>
+		<div id="used2"><div>96%</div><div>used</div></div> -->
+	</div>
+	<script type="text/javascript">
+	function easeOutQuart(t, b, c, d) {
+		var ts=(t/=d)*t;
+		var tc=ts*t;
+		return b+c*(-1*ts*ts + 4*tc + -6*ts + 4*t);
+	}
+	
+	// draw product 1 chart
+	var c1 = document.getElementById('wheel1');
+	var ctx1 = c1.getContext('2d');
+	
+	var c2 = document.getElementById('wheel2');
+	var ctx2 = c2.getContext('2d');
+	
+	var baseCurrentTime = 0;
+	var indicatorCurrentTime = 0;
+	var textCurrentTime = 0;
+	
+	var baseAnimationPara = {
+		start:-90,
+		end:360,
+		duration:3000, //draw 1000 milliseconds
+		unit:10, // unit 10 milliseconds
+		delay:100
+	};
+	
+	var indicatorAnimationPara = {
+		start:-90,
+		end:120,
+		duration:3000, //draw 1000 milliseconds
+		unit:10, // unit 10 milliseconds
+		delay:300
+	};
+	
+	var base2AnimationPara = {
+		start:-90,
+		end:360,
+		duration:3000, //draw 1000 milliseconds
+		unit:10, // unit 10 milliseconds
+		delay:100
+	};
+	
+	var indicator2AnimationPara = {
+		start:-90,
+		end:320,
+		duration:3000, //draw 1000 milliseconds
+		unit:10, // unit 10 milliseconds
+		delay:300
+	};
+	
+	var textFadePara = {
+		start:0,
+		end:1,
+		duration:1400, //draw 1000 milliseconds
+		unit:10, // unit 10 milliseconds
+		delay:1400
+	};
+	
+	var temp_end;
+	
+	var drawBaseInterval = setInterval(function(){
+		c1.width = c1.width;
+		c2.width = c2.width;
+		
+		baseCurrentTime+=baseAnimationPara['unit'];
+		
+		if (baseCurrentTime >= baseAnimationPara['delay']){
+			ctx1.beginPath();
+			ctx1.lineWidth = 20;
+			ctx1.strokeStyle = '#e7e7e7';
+			if (baseCurrentTime <= baseAnimationPara['duration']+baseAnimationPara['delay']){
+				temp_end = easeOutQuart(baseCurrentTime-baseAnimationPara['delay'],baseAnimationPara['start'],baseAnimationPara['end'],baseAnimationPara['duration']);
+			} else {
+				temp_end = baseAnimationPara['start'] + baseAnimationPara['end'];
+			}
+			
+			ctx1.arc(c1.width/2,c1.height/2,52,baseAnimationPara['start']*Math.PI/180,temp_end*Math.PI/180);
+			ctx1.stroke();
+			ctx1.closePath();
+			
+			ctx2.beginPath();
+			ctx2.lineWidth = 20;
+			ctx2.strokeStyle = '#e7e7e7';
+			if (baseCurrentTime <= base2AnimationPara['duration']+base2AnimationPara['delay']){
+				temp_end = easeOutQuart(baseCurrentTime-base2AnimationPara['delay'],base2AnimationPara['start'],base2AnimationPara['end'],base2AnimationPara['duration']);
+			} else {
+				temp_end = base2AnimationPara['start'] + base2AnimationPara['end'];
+			}
+			
+			ctx2.arc(c2.width/2,c2.height/2,52,base2AnimationPara['start']*Math.PI/180,temp_end*Math.PI/180);
+			ctx2.stroke();
+			ctx2.closePath();
+		}
+		
+		indicatorCurrentTime+=indicatorAnimationPara['unit'];
+		
+		if (indicatorCurrentTime >= indicatorAnimationPara['delay']){
+			ctx1.beginPath();
+			ctx1.lineWidth = 20;
+			ctx1.strokeStyle = '#26C715'; // green
+			if (indicatorCurrentTime <= indicatorAnimationPara['duration']+indicatorAnimationPara['delay']){
+				temp_end = easeOutQuart(indicatorCurrentTime-indicatorAnimationPara['delay'],indicatorAnimationPara['start'],indicatorAnimationPara['end'],indicatorAnimationPara['duration']);
+			} else {
+				temp_end = indicatorAnimationPara['start'] + indicatorAnimationPara['end'];
+			}
+			
+			ctx1.arc(c1.width/2,c1.height/2,52,indicatorAnimationPara['start']*Math.PI/180,temp_end*Math.PI/180);
+			ctx1.stroke();
+			ctx1.closePath();
+			
+			ctx2.beginPath();
+			ctx2.lineWidth = 20;
+			ctx2.strokeStyle = '#fa4833'; //red
+			if (indicatorCurrentTime <= indicator2AnimationPara['duration']+indicator2AnimationPara['delay']){
+				temp_end = easeOutQuart(indicatorCurrentTime-indicator2AnimationPara['delay'],indicator2AnimationPara['start'],indicator2AnimationPara['end'],indicator2AnimationPara['duration']);
+			} else {
+				temp_end = indicator2AnimationPara['start'] + indicator2AnimationPara['end'];
+			}
+			
+			ctx2.arc(c2.width/2,c2.height/2,52,indicator2AnimationPara['start']*Math.PI/180,temp_end*Math.PI/180);
+			ctx2.stroke();
+			ctx2.closePath();
+		}
+		
+		textCurrentTime+=textFadePara['unit'];
+		
+		if (textCurrentTime >= textFadePara['delay']){
+			if (textCurrentTime <= textFadePara['duration']+textFadePara['delay']){
+				temp_end = easeOutQuart(textCurrentTime-textFadePara['delay'],textFadePara['start'],textFadePara['end'],textFadePara['duration']);
+			} else {
+				temp_end = textFadePara['start'] + textFadePara['end'];
+			}
+			
+			ctx1.fillStyle = 'rgba(0,0,0,'+temp_end+')'; // black
+			ctx1.font = 'bold 32px sans-serif';
+			ctx1.fillText('48%',33,72);
+			
+			ctx1.font = 'lighter 16px sans-serif';
+			ctx1.fillText('used',48,90);
+			
+			ctx2.fillStyle = 'rgba(250, 72, 51,'+temp_end+')'; // red
+			ctx2.font = 'bold 32px sans-serif';
+			ctx2.fillText('92%',33,72);
+			
+			ctx2.fillStyle = 'rgba(0, 0, 0,'+temp_end+')'; // black
+			ctx2.font = 'lighter 16px sans-serif';
+			ctx2.fillText('used',48,90);
+			
+		}
+		
+		var end_time = Math.max(baseAnimationPara['duration']+baseAnimationPara['delay'],indicatorAnimationPara['duration']+indicatorAnimationPara['delay']);
+		if (baseCurrentTime>=end_time){
+			console.log('cleaned');
+			window.clearInterval(drawBaseInterval);
+		}
+	},baseAnimationPara['unit']);
+	
+	
+	</script>
+</body>
+</html>
