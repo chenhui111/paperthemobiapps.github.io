@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html manifest="demo.appcache">
+<head>
+	<meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Question 1</title>
+  <link rel="stylesheet" type="text/css" href="css/q.css">
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+  <script src="src/jquery.ui.touch-punch.min.js"></script>
+  <script src="src/jquery.css3caching.js"></script>
+</head>
+<body>
+	<div id="navbar"><a href="index.html" class="btnClose" target="_top">Close</a></div>
+	<div id="main">
+		<p class="description">您怎样评价您在王口井路虎的服务体验的综合满意度？</p>
+		<div class="insight">
+			<div class="graph graph1"></div>
+			<div class="graph graph2"></div>
+			<div class="graph graph3"></div>
+			<div class="graph graph4"></div>
+			<div class="graph graph5"></div>
+			<div class="graph graph6"></div>
+			<div class="graph graph7"></div>
+			<div class="graph graph8"></div>
+			<div class="graph graph9"></div>
+			<div class="graph graph10"></div>
+		</div>
+		<div class="score">6<br>好</div>
+		<div class="interaction"><div class="line"></div><div class="handle"></div></div>
+	</div>
+	<div id="navigation">
+		<a href="#" class="previous"></a>
+		<div class="page">
+			<div class="page_no">3</div>
+			<div class="car"></div>
+		</div>
+		<a href="q4.html" class="next"></a>
+	</div>
+	<div id="preload" style="display:none;">
+		<img src="images/good.png" />
+		<img src="images/bad.png" />
+	</div>
+	<script>
+	var opts = [
+	"1<br>很差",
+	"2<br>很差",
+	"3<br>差",
+	"4<br>差",
+	"5<br>好",
+	"6<br>好",
+	"7<br>很好",
+	"8<br>很好",
+	"9<br>非常好",
+	"10<br>非常好"
+	];
+	
+	var a=document.getElementsByTagName("a");
+	for(var i=0;i<a.length;i++)
+	{
+	    a[i].onclick=function()
+	    {
+	        window.location=this.getAttribute("href");
+	        return false
+	    }
+	}
+	
+	$(function(){
+		// preload images
+		$.preload.images(document);
+		
+		//init the draggle
+		console.log('init');
+		$('div.handle').draggable({axis:'x',containment:'div.interaction',drag:function(evt,ui){
+			console.log(ui.position.left);
+			//x pos: 0-276  ->    1-10
+			if (ui.position.left == 0){
+				$('div.score').html(opts[0]);
+				$('div.graph').hide();
+				$('div.graph1').show();
+				//$('div.graph').css('background-image','url(images/bad.png)');
+				//$('div.graph').css('background-size','100%');
+			} else if (ui.position.left == 276){
+				$('div.score').html(opts[9]);
+				//$('div.graph').css('background-image','url(images/good.png)');
+				//$('div.graph').css('background-size','100%');
+				$('div.graph').hide();
+				$('div.graph10').show();
+			} else {
+				var score = Math.round(1+ui.position.left*(9/276));
+				$('div.score').html(opts[score-1]);
+				switch(score){
+				case 1:
+					//$('div.graph').css('background-image','url(images/bad.png)');
+					//$('div.graph').css('background-size','100%');
+					$('div.graph').hide();
+					$('div.graph1').show();
+					break;
+				case 2:
+					//$('div.graph').css('background-image','url(images/bad.png)');
+					//$('div.graph').css('background-size','80%');
+					$('div.graph').hide();
+					$('div.graph2').show();
+					break;
+				case 3:
+					//$('div.graph').css('background-image','url(images/bad.png)');
+					//$('div.graph').css('background-size','60%');
+					$('div.graph').hide();
+					$('div.graph3').show();
+					break;
+				case 4:
+					//$('div.graph').css('background-image','url(images/bad.png)');
+					//$('div.graph').css('background-size','40%');
+					$('div.graph').hide();
+					$('div.graph4').show();
+					break;
+				case 5:
+					//$('div.graph').css('background-image','url(images/bad.png)');
+					//$('div.graph').css('background-size','20%');
+					$('div.graph').hide();
+					$('div.graph5').show();
+					break;
+				case 6:
+					//$('div.graph').css('background-image','url(images/good.png)');
+					//$('div.graph').css('background-size','20%');
+					$('div.graph').hide();
+					$('div.graph6').show();
+					break;
+				case 7:
+					//$('div.graph').css('background-image','url(images/good.png)');
+					//$('div.graph').css('background-size','40%');
+					$('div.graph').hide();
+					$('div.graph7').show();
+					break;
+				case 8:
+					//$('div.graph').css('background-image','url(images/good.png)');
+					//$('div.graph').css('background-size','60%');
+					$('div.graph').hide();
+					$('div.graph8').show();
+					break;
+				case 9:
+					//$('div.graph').css('background-image','url(images/good.png)');
+					//$('div.graph').css('background-size','80%');
+					$('div.graph').hide();
+					$('div.graph9').show();
+					break;
+				case 10:
+					//$('div.graph').css('background-image','url(images/good.png)');
+					//$('div.graph').css('background-size','100%');
+					$('div.graph').hide();
+					$('div.graph10').show();
+					break;
+				}
+			}
+		}});
+		
+	});
+	</script>
+
+</body>
+</html>

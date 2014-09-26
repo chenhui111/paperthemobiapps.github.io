@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html manifest="demo.appcache">
+<head>
+	<meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Question 1</title>
+  <link rel="stylesheet" type="text/css" href="css/q4.css">
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+  <script src="src/jquery.ui.touch-punch.min.js"></script>
+  <script src="src/jquery.css3caching.js"></script>
+</head>
+<body>
+	<div id="navbar"><a href="index.html" class="btnClose" target="_top">Close</a></div>
+	<div id="main">
+		<p class="description">您怎样评价您在王口井路虎的服务体验的综合满意度？</p>
+		<div id="interaction">
+			<div id="no"><div class="btn_bg"></div><div class="btn_title">否</div></div>
+			<div id="yes"><div class="btn_bg"></div><div class="btn_title">是</div></div>
+		</div>
+	</div>
+	<div id="navigation">
+		<a href="q1.html" class="previous"></a>
+		<div class="page">
+			<div class="page_no">6</div>
+			<div class="car"></div>
+		</div>
+		<a href="#" class="next"></a>
+	</div>
+	
+	<audio preload id="sound_yes">
+	  <source src="sounds/sound_yes2.ogg" type="audio/ogg">
+		  <source src="sounds/sound_yes2.m4a" type="audio/mp4">
+		  
+		  Your browser sucks!
+	</audio>
+	
+	<audio preload id="sound_no">
+	  <source src="sounds/sound_no.ogg" type="audio/ogg">
+		  <source src="sounds/sound_no.m4a" type="audio/mp4">
+		  Your browser sucks!
+	</audio>
+	
+	<div id="preload" style="display:none;">
+		<img src="images/good.png" />
+		<img src="images/bad.png" />
+	</div>
+	<script>
+	var a=document.getElementsByTagName("a");
+	for(var i=0;i<a.length;i++)
+	{
+	    a[i].onclick=function()
+	    {
+	        window.location=this.getAttribute("href");
+	        return false
+	    }
+	}
+	
+	$(function(){
+		// preload images
+		$.preload.images(document);
+		
+		//init the draggle
+		console.log('init');
+		/*$('div#no').effect('scale',{
+			percent:30,
+			origin:'middle',
+			easing:'easeOutElastic'
+		},300,function(){
+			
+		});*/
+			$('div#no>div.btn_bg').animate({
+				width:'60%',
+				height:'60%',
+				left:'20%',
+				top:'20%',
+				opacity:0.3
+			},800,'easeOutElastic');
+			
+			$('div#yes>div.btn_bg').animate({
+				width:'100%',
+				height:'100%',
+				left:0,
+				top:0,
+				opacity:1
+			},800,'easeOutElastic');
+			
+			$('#sound_yes').trigger('play');
+			
+			$('div#yes').click(function(){
+				$('div#no>div.btn_bg').animate({
+					width:'60%',
+					height:'60%',
+					left:'20%',
+					top:'20%',
+					opacity:0.3
+				},800,'easeOutElastic');
+			
+				$('div#yes>div.btn_bg').animate({
+					width:'100%',
+					height:'100%',
+					left:0,
+					top:0,
+					opacity:1
+				},800,'easeOutElastic');
+				
+				$('#sound_yes').trigger('play');
+			});
+			
+			$('div#no').click(function(){
+				$('div#no>div.btn_bg').animate({
+					width:'100%',
+					height:'100%',
+					left:0,
+					top:0,
+					opacity:1
+				},800,'easeOutElastic');
+			
+				$('div#yes>div.btn_bg').animate({
+					width:'60%',
+					height:'60%',
+					left:'20%',
+					top:'20%',
+					opacity:0.3
+				},800,'easeOutElastic');
+				
+				$('#sound_no').trigger('play');
+			});
+			
+	});
+	</script>
+
+</body>
+</html>

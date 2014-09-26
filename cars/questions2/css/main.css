@@ -1,0 +1,80 @@
+/*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
+
+/*
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html {
+    color:#36a9e1;
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+body{
+	margin:0;
+	padding:0;
+	
+	font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+	font-size:14px;
+}
+
+div#main{
+	width:100%;
+	height:100%;
+}
+
+div.step{
+	width:100%;
+	min-height:200px;
+	z-index:1000;
+	position:relative;
+}
+
+div#pattern_bg{
+	background:url('../images/pattern.png');
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	position:fixed;
+	z-index:10;
+}
+
+div.header{
+	font-size:30px;
+	color:rgba(255,255,255,0.4);
+	width:100%;
+	font-family:'American Typewriter',"Times New Roman",Times,serif;
+	text-align:center;
+	background:url('../images/divider.png');
+	background-size:100% auto;
+	background-repeat:no-repeat;
+	background-position:center bottom;
+	margin-bottom:10px;
+	font-weight:bold;
+}
+
+div.description{
+	width:100%;
+	text-align:center;
+	font-size:1.4em;
+	color:#ffffff;
+}
+
+div.screenshot{
+	overflow:hide;
+}
+
+div.screenshot>img{
+	width:100%;
+	height:auto;
+	box-shadow:0 0 12px 4px rgba(0,0,0,0.5);
+	margin-top:14px;
+	margin-bottom:14px;
+}
